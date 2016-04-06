@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyBDMap</string>
+    <string name="NORMAL">普通地图</string>
+    <string name="SATELLITE">卫星地图</string>
+    <string name="NONE">空白地图</string>
+    <string name="Traffic">交通图</string>
+    <string name="BaiduHeatMap">百度热力图</string>
+    <string name="check">搜索</string>
+    <string name="location">我的位置</string>
+</resources>
