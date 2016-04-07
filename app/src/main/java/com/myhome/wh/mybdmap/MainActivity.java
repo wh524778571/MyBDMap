@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button none;
 
     private BaiduMap mBaiduMap;
-    
+
     private CheckBox traffic;
     private CheckBox baiduHeatMap;
     private Marker marker;
