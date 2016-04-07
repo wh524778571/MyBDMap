@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button none;
 
     private BaiduMap mBaiduMap;
-    // 声明一个Handler对象
-    private static Handler handler = new Handler();
+    
     private CheckBox traffic;
     private CheckBox baiduHeatMap;
     private Marker marker;
