@@ -1,6 +1,7 @@
 package com.myhome.wh.mybdmap.Overlay;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -68,7 +69,7 @@ public class PoiOverlay extends OverlayManager {
 
     /**
      * 获取该 PoiOverlay 的 poi数据
-     * 
+     *
      * @return
      */
     public PoiResult getPoiResult() {
@@ -77,7 +78,7 @@ public class PoiOverlay extends OverlayManager {
 
     /**
      * 覆写此方法以改变默认点击行为
-     * 
+     *
      * @param i
      *            被点击的poi在
      *            {@link PoiResult#getAllPoi()} 中的索引

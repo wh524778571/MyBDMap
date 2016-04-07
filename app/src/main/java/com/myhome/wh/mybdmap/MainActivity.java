@@ -1,5 +1,6 @@
 package com.myhome.wh.mybdmap;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,12 +23,18 @@ import com.baidu.mapapi.map.LogoPosition;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button check;
     private EditText etCity;
     private EditText etSearchkey;
+
 
     /**
      * 定位SDK的核心类
@@ -104,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // 构建mark图标
         mCurrentMarker = BitmapDescriptorFactory
-                .fromResource(R.drawable.icon_marker);
+                .fromResource(R.drawable.market);
         //  定位
         mLocationClient = new LocationClient(getApplicationContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);    //注册监听函数
@@ -142,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // 在地图上添加Marker，并显示
         baiduMap.addOverlay(option);
+
     }
 
 
@@ -292,7 +301,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public class MyLocationListenner implements BDLocationListener {
 
         @Override
-        public void onReceiveLocation(BDLocation location) {
+        public void onReceiveLocation(final BDLocation location) {
 
             //Receive Location
             StringBuffer sb = new StringBuffer(256);
@@ -374,7 +383,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mBaiduMap.animateMapStatus(u);
             //  tv.setText(location.getAddrStr());
             overlay(ll, mCurrentMarker, mBaiduMap);
+            //按钮开始后要停止，否则会一直定位
+            mLocationClient.stop();
 
+
+            //对 marker 添加点击相应事件
+            mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
+
+                @Override
+                public boolean onMarkerClick(Marker arg0) {
+                    String addrStr = location.getAddrStr();
+                    String locationDescribe = location.getLocationDescribe();
+                    Toast.makeText(getApplicationContext(), addrStr + ":" + locationDescribe, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
 
         }
     }
